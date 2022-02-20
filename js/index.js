@@ -5,13 +5,13 @@ $(function(){
   let areaData;
 
   async function fetchStoreJSON() {
-    const response = await fetch('/data/store.json');
+    const response = await fetch('./data/store.json');
     const stores = await response.json();
     return stores;
   }
 
   async function fetchAreaJSON() {
-    const response = await fetch('/data/area.json');
+    const response = await fetch('./data/area.json');
     const area = await response.json();
     return area;
   }
