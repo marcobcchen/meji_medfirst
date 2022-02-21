@@ -32,8 +32,14 @@ $(function(){
       searchCity = storeData.filter(function(store){
         return store.city === city
       });
-      console.log('選擇的城市：', searchCity);
-      createStore(searchCity);
+      // console.log('選擇的城市：', searchCity);
+
+      const sortCity = searchCity.sort(function(a, b) {
+        return a.zone.localeCompare(b.zone)
+      });
+      console.log('依照區域筆畫排序過的：', sortCity);
+
+      createStore(sortCity);
     }
 
     if(zone != ''){
@@ -41,6 +47,7 @@ $(function(){
         return store.zone === zone
       });
       console.log('選擇的區域：', searchZone);
+
       createStore(searchZone);
     }
   }
@@ -50,15 +57,16 @@ $(function(){
 
     stores.map(function(store){
       let fullAddress = store.city + store.zone + store.address;
+      let mapUrl = 'https://www.google.com.tw/maps/place/' + fullAddress;
       storeElement +=
-      '<div>' +
-        '<p>' + store.store + '</p>' +
-        '<p>' + store.city + '</p>' +
-        '<p>' + store.zone + '</p>' +
-        '<p>' + store.address + '</p>' +
-        '<a href="https://www.google.com.tw/maps/place/' + fullAddress + '" target="_blank">開啟地圖</a>' +
-        '<hr />' +
-      '</div>';
+        '<li>' +
+					'<div class="info">' +
+						'<div class="name">' + store.store + '</div>' +
+						'<div class="addr">' + fullAddress + '</div>' +
+						'<div class="tel">' + store.phone + '</div>' +
+					'</div>' +
+					'<a href="' + mapUrl + '" target="_blank" class="btn-map"><span>開啟地圖</span></a>' +
+				'</li>';
     });
 
     $('#store').empty().append(storeElement);
